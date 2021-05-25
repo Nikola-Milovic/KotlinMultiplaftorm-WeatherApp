@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="main-desktop">
+    <output-path>$PROJECT_DIR$/common/main/build/libs</output-path>
+    <root id="archive" name="main-desktop.jar">
+      <element id="module-output" name="kmm-weather.common.main.desktopMain" />
+    </root>
+  </artifact>
+</component>
