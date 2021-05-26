@@ -9,10 +9,31 @@ object Deps {
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
             const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
 
+            const val serializationGradle = "org.jetbrains.kotlin:kotlin-serialization:$VERSION"
+
             object Coroutines {
                 const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
                 const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION"
             }
+        }
+
+
+        object Ktor {
+            private const val VERSION = "1.5.4"
+            const val core = "io.ktor:ktor-client-core:$VERSION"
+            const val json = "io.ktor:ktor-client-json:$VERSION"
+            const val serialization = "io.ktor:ktor-client-serialization:$VERSION"
+
+            const val android = "io.ktor:ktor-client-android:$VERSION"
+            const val jsonJVM = "io.ktor:ktor-client-json-jvm:$VERSION"
+            const val serializationJVM = "io.ktor:ktor-client-serialization-jvm:$VERSION"
+            const val okhttp = "io.ktor:ktor-client-okhttp:$VERSION"
+            const val logging = "com.squareup.okhttp3:logging-interceptor:3.14.1"
+
+            const val ios = "io.ktor:ktor-client-ios:$VERSION"
+            const val jsonNative = "io.ktor:ktor-client-json-native:$VERSION"
+            const val iosSerialization = "io.ktor:ktor-client-serialization-iosx64:$VERSION"
+
         }
 
         object Compose {
@@ -26,6 +47,11 @@ object Deps {
         }
 
 
+    }
+
+    object Utils {
+        //Logger
+        const val napier = "com.github.aakira:napier:1.4.1"
     }
 
     object Android {

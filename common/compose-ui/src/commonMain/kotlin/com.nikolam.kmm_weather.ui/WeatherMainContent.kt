@@ -1,39 +1,49 @@
 package com.nikolam.kmm_weather.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arkivanov.decompose.extensions.compose.jetbrains.asState
-import com.nikolam.kmm_weather.common.main.WeatherItem
-import com.nikolam.kmm_weather.common.main.WeatherMain
-import com.nikolam.kmm_weather.common.main.integration.WeatherMainComponent
 
 @Composable
 fun WeatherMainContent(component: WeatherMain) {
     val model by component.models.asState()
+
+    Column {
+        Box(Modifier.weight(1F)) {
+            WeatherList(
+                items = model.items,
+            )
+        }
+
+    }
 }
 
 
 @Composable
 private fun WeatherList(
-    items : List<WeatherItem>
+    items: List<WeatherItem>
 ) {
-    LazyColumn {
-        items.forEach { item ->
-           WeatherItem(item.string)
+    Box {
+        LazyColumn(Modifier.fillMaxWidth()) {
+            items(items) { item ->
+                com.nikolam.kmm_weather.ui.WeatherItem(item.string)
+            }
         }
     }
-    println(items)
 }
 
 @Composable
 private fun WeatherItem(
-    text : String
+    text: String
 ) {
     val modifier = Modifier
     modifier.padding(4.dp)

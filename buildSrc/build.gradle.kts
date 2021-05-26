@@ -15,6 +15,7 @@ dependencies {
     implementation(Deps.JetBrains.Kotlin.gradlePlugin)
     implementation(Deps.Android.Tools.Build.gradlePlugin)
     implementation(Deps.Squareup.SQLDelight.gradlePlugin)
+    implementation(Deps.JetBrains.Kotlin.serializationGradle)
 }
 
 kotlin {
