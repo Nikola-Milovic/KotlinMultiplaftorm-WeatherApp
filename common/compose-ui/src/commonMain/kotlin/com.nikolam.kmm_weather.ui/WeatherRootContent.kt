@@ -5,7 +5,6 @@ package com.nikolam.kmm_weather.ui
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetbrains.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.animation.child.crossfadeScale
-import com.nikolam.kmm_weather.common.main.WeatherMain
 import com.nikolam.kmm_weather.common.root.WeatherRoot
 
 @Composable

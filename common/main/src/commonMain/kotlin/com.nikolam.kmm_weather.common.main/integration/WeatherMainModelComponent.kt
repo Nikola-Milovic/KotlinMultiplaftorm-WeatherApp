@@ -9,24 +9,25 @@ import com.badoo.reaktive.base.Consumer
 import com.badoo.reaktive.base.invoke
 import com.nikolam.kmm_weather.common.main.store.WeatherMainStoreProvider
 import com.nikolam.kmm_weather.common.utils.getStore
-import com.nikolam.kmm_weather.common.main.WeatherMain
+import com.nikolam.kmm_weather.common.main.WeatherMainModel
 
-class WeatherMainComponent (componentContext: ComponentContext,
-                            storeFactory: StoreFactory,
-                            private val output: Consumer<WeatherMain.Output>
-) : WeatherMain, ComponentContext by componentContext {
+class WeatherMainModelComponent(
+    componentContext: ComponentContext,
+    storeFactory: StoreFactory,
+    private val output: Consumer<WeatherMainModel.Output>
+) : WeatherMainModel, ComponentContext by componentContext {
 
     private val store =
         instanceKeeper.getStore {
             WeatherMainStoreProvider(
                 storeFactory = storeFactory,
-              ///  database = TodoMainStoreDatabase(queries = database.todoDatabaseQueries)
+                ///  database = TodoMainStoreDatabase(queries = database.todoDatabaseQueries)
             ).provide()
         }
 
-    override val models: Value<WeatherMain.Model> = store.asValue().map(stateToModel)
+    override val models: Value<WeatherMainModel.Model> = store.asValue().map(STATE_TO_MODEL)
 
     override fun onItemClicked(id: Long) {
-        output(WeatherMain.Output.SelectedDay(id = id))
+        output(WeatherMainModel.Output.SelectedDay(id = id))
     }
 }

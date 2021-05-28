@@ -6,6 +6,14 @@
       <module name="kmm-weather.common.compose-ui.commonTest" target="1.8" />
       <module name="kmm-weather.common.compose-ui.desktopMain" target="1.8" />
       <module name="kmm-weather.common.compose-ui.desktopTest" target="1.8" />
+      <module name="kmm-weather.common.main.commonMain" target="1.8" />
+      <module name="kmm-weather.common.main.commonTest" target="1.8" />
+      <module name="kmm-weather.common.main.desktopMain" target="1.8" />
+      <module name="kmm-weather.common.main.desktopTest" target="1.8" />
+      <module name="kmm-weather.common.root.commonMain" target="1.8" />
+      <module name="kmm-weather.common.root.commonTest" target="1.8" />
+      <module name="kmm-weather.common.root.desktopMain" target="1.8" />
+      <module name="kmm-weather.common.root.desktopTest" target="1.8" />
       <module name="kmm-weather.common.utils.commonMain" target="1.8" />
       <module name="kmm-weather.common.utils.commonTest" target="1.8" />
       <module name="kmm-weather.common.utils.desktopMain" target="1.8" />

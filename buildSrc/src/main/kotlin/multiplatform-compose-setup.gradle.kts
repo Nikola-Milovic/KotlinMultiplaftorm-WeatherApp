@@ -6,6 +6,18 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+//workaround for https://youtrack.jetbrains.com/issue/KT-43944
+android {
+    configurations {
+        create("androidTestApi")
+        create("androidTestDebugApi")
+        create("androidTestReleaseApi")
+        create("testApi")
+        create("testDebugApi")
+        create("testReleaseApi")
+    }
+}
+
 kotlin {
     jvm("desktop")
     android()
@@ -16,7 +28,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(Deps.JetBrains.Compose.tooling)
+           //     implementation(Deps.JetBrains.Compose.tooling)
                 implementation(Deps.JetBrains.Compose.compiler)
             }
         }

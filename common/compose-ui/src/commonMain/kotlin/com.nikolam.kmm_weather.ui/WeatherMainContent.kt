@@ -5,41 +5,39 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.jetbrains.asState
+import com.nikolam.kmm_weather.common.main.WeatherMainModel
 
 @Composable
-fun WeatherMainContent(component: WeatherMain) {
+fun WeatherMainContent(component: WeatherMainModel) {
     val model by component.models.asState()
 
     Column {
         Box(Modifier.weight(1F)) {
-            WeatherList(
-                items = model.items,
-            )
+            WeatherItem(model.currentWeather?.string ?: "Error")
         }
 
     }
 }
 
 
-@Composable
-private fun WeatherList(
-    items: List<WeatherItem>
-) {
-    Box {
-        LazyColumn(Modifier.fillMaxWidth()) {
-            items(items) { item ->
-                com.nikolam.kmm_weather.ui.WeatherItem(item.string)
-            }
-        }
-    }
-}
+//@Composable
+//private fun WeatherList(
+//    items: List<WeatherItem>
+//) {
+//    Box {
+//        LazyColumn(Modifier.fillMaxWidth()) {
+//            items(items) { item ->
+//                com.nikolam.kmm_weather.ui.WeatherItem(item.string)
+//            }
+//        }
+//    }
+//}
 
 @Composable
 private fun WeatherItem(

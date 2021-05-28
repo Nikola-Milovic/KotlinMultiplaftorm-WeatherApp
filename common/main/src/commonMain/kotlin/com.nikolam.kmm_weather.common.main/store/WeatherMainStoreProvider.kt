@@ -4,13 +4,17 @@ import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
-import com.arkivanov.mvikotlin.extensions.reaktive.ReaktiveExecutor
-import com.nikolam.kmm_weather.common.main.WeatherItem
+import com.arkivanov.mvikotlin.extensions.coroutines.SuspendExecutor
+import com.nikolam.kmm_weather.common.main.data.model.CurrentWeatherModel
+import com.nikolam.kmm_weather.common.main.data.network.WeatherAPI
 import com.nikolam.kmm_weather.common.main.store.WeatherMainStore.State
+import com.nikolam.kmm_weather.common.utils.PlatformServiceLocator
 
 internal class WeatherMainStoreProvider(
-    private val storeFactory: StoreFactory
+    private val storeFactory: StoreFactory,
 ) {
+
+    private val weatherAPI by lazy { WeatherAPI(PlatformServiceLocator.httpClientEngine) }
 
     fun provide(): WeatherMainStore =
         object : WeatherMainStore,
@@ -24,34 +28,26 @@ internal class WeatherMainStoreProvider(
 
 
     private sealed class Result {
-        data class ItemsLoaded(val items: List<WeatherItem>) : Result()
+        data class WeatherLoaded(val currentWeather: CurrentWeatherModel) : Result()
         data class ItemsLoadFailed(val err: Int) : Result()
     }
 
     private inner class ExecutorImpl :
-        ReaktiveExecutor<WeatherMainStore.Intent, Unit, State, Result, Nothing>() {
-        override fun executeAction(action: Unit, getState: () -> State) {
-            dispatch(
-                Result.ItemsLoaded(
-                    listOf(
-                        WeatherItem("1"),
-                        WeatherItem("2"),
-                        WeatherItem("3")
-                    )
-                )
-            )
-//            database
-//                .updates
-//                .observeOn(mainScheduler)
-//                .map(Result::ItemsLoaded)
-//                .subscribeScoped(onNext = ::dispatch)
+        SuspendExecutor<WeatherMainStore.Intent, Unit, State, Result, Nothing>() {
+        override suspend fun executeAction(action: Unit, getState: () -> State) {
+            try {
+                val m = weatherAPI.getCurrentWeather()
+                dispatch(Result.WeatherLoaded(m))
+            } catch (e: Exception) {
+                dispatch(Result.ItemsLoadFailed(-1))
+            }
         }
     }
 
     private object ReducerImpl : Reducer<State, Result> {
         override fun State.reduce(result: Result): State =
             when (result) {
-                is Result.ItemsLoaded -> copy(items = result.items)
+                is Result.WeatherLoaded -> copy(currentWeather = result.currentWeather)
                 is Result.ItemsLoadFailed -> copy()
             }
     }

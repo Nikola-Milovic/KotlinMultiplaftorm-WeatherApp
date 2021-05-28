@@ -3,7 +3,7 @@ object Deps {
     object JetBrains {
         object Kotlin {
             // __KOTLIN_COMPOSE_VERSION__
-            private const val VERSION = "1.4.32"
+            private const val VERSION = "1.5.0"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
@@ -34,6 +34,8 @@ object Deps {
             const val jsonNative = "io.ktor:ktor-client-json-native:$VERSION"
             const val iosSerialization = "io.ktor:ktor-client-serialization-iosx64:$VERSION"
 
+            const val curlClient = "io.ktor:ktor-client-curl:$VERSION"
+
         }
 
         object Compose {
@@ -57,7 +59,7 @@ object Deps {
     object Android {
         object Tools {
             object Build {
-                const val gradlePlugin = "com.android.tools.build:gradle:4.0.1"
+                const val gradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha01"
             }
         }
     }
