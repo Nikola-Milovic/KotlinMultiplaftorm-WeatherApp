@@ -6,17 +6,17 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-//workaround for https://youtrack.jetbrains.com/issue/KT-43944
-android {
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
-}
+////workaround for https://youtrack.jetbrains.com/issue/KT-43944
+//android {
+//    configurations {
+//        create("androidTestApi")
+//        create("androidTestDebugApi")
+//        create("androidTestReleaseApi")
+//        create("testApi")
+//        create("testDebugApi")
+//        create("testReleaseApi")
+//    }
+//}
 
 kotlin {
     jvm("desktop")
@@ -28,15 +28,15 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-           //     implementation(Deps.JetBrains.Compose.tooling)
+                implementation(Deps.JetBrains.Compose.tooling)
                 implementation(Deps.JetBrains.Compose.compiler)
             }
         }
 
         named("androidMain") {
             dependencies {
-                implementation("androidx.appcompat:appcompat:1.3.0-beta01")
-                implementation("androidx.core:core-ktx:1.3.1")
+                implementation("androidx.appcompat:appcompat:1.4.0-alpha01")
+                implementation("androidx.core:core-ktx:1.5.0")
             }
         }
 

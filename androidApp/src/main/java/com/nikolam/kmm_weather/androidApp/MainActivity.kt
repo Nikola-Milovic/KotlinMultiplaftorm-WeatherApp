@@ -13,11 +13,13 @@ import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.nikolam.kmm_weather.common.root.WeatherRoot
 import com.nikolam.kmm_weather.common.root.integration.WeatherRootComponent
 import com.nikolam.kmm_weather.ui.WeatherRootContent
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Napier.base(DebugAntilog("my_weather_tag"))
         setContent {
             ComposeAppTheme {
                 Surface(color = MaterialTheme.colors.background) {

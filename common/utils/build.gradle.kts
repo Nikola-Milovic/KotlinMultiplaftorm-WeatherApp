@@ -1,6 +1,7 @@
 plugins {
     id("multiplatform-setup")
     id("android-setup")
+    id("kotlinx-serialization")
 }
 
 kotlin {
@@ -21,7 +22,7 @@ kotlin {
                 implementation(Deps.JetBrains.Ktor.android)
                 implementation(Deps.JetBrains.Ktor.jsonJVM)
                 implementation(Deps.JetBrains.Ktor.serializationJVM)
-                implementation(Deps.JetBrains.Ktor.logging)
+               // implementation(Deps.JetBrains.Ktor.logging)
                 implementation(Deps.JetBrains.Ktor.okhttp)
             }
         }

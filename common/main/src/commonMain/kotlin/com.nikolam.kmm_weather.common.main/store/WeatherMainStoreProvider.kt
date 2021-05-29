@@ -9,6 +9,7 @@ import com.nikolam.kmm_weather.common.main.data.model.CurrentWeatherModel
 import com.nikolam.kmm_weather.common.main.data.network.WeatherAPI
 import com.nikolam.kmm_weather.common.main.store.WeatherMainStore.State
 import com.nikolam.kmm_weather.common.utils.PlatformServiceLocator
+import io.github.aakira.napier.Napier
 
 internal class WeatherMainStoreProvider(
     private val storeFactory: StoreFactory,
@@ -37,8 +38,10 @@ internal class WeatherMainStoreProvider(
         override suspend fun executeAction(action: Unit, getState: () -> State) {
             try {
                 val m = weatherAPI.getCurrentWeather()
+                Napier.d("Sucess $m", tag = "my_tag")
                 dispatch(Result.WeatherLoaded(m))
             } catch (e: Exception) {
+                Napier.e(e.toString(), e,tag = "my_tag")
                 dispatch(Result.ItemsLoadFailed(-1))
             }
         }

@@ -13,7 +13,6 @@ internal data class CurrentWeatherNetworkModel (
     val wind: Wind,
     val clouds: Clouds,
     val dt: Long,
-    val sys: Sys,
     val timezone: Long,
     val id: Long,
     val name: String,
@@ -45,15 +44,7 @@ internal data class Main (
     val pressure: Long,
     val humidity: Long
 )
-@Serializable
-internal data class Sys (
-    val type: Long,
-    val id: Long,
-    val message: Float,
-    val country: String,
-    val sunrise: Long,
-    val sunset: Long
-)
+
 @Serializable
 internal data class Weather (
     val id: Long,

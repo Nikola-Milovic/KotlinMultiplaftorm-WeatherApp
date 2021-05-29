@@ -3,11 +3,13 @@ object Deps {
     object JetBrains {
         object Kotlin {
             // __KOTLIN_COMPOSE_VERSION__
-            private const val VERSION = "1.5.0"
+            private const val VERSION = "1.4.32"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
             const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
+
+            const val serializationRuntime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0"
 
             const val serializationGradle = "org.jetbrains.kotlin:kotlin-serialization:$VERSION"
 
@@ -28,7 +30,7 @@ object Deps {
             const val jsonJVM = "io.ktor:ktor-client-json-jvm:$VERSION"
             const val serializationJVM = "io.ktor:ktor-client-serialization-jvm:$VERSION"
             const val okhttp = "io.ktor:ktor-client-okhttp:$VERSION"
-            const val logging = "com.squareup.okhttp3:logging-interceptor:3.14.1"
+        //    const val logging = "com.squareup.okhttp3:logging-interceptor:4.8.1"
 
             const val ios = "io.ktor:ktor-client-ios:$VERSION"
             const val jsonNative = "io.ktor:ktor-client-json-native:$VERSION"
@@ -53,13 +55,14 @@ object Deps {
 
     object Utils {
         //Logger
-        const val napier = "com.github.aakira:napier:1.4.1"
+        const val napier = "io.github.aakira:napier:1.5.0"
+        const val dependenciesCheck =  "com.github.ben-manes:gradle-versions-plugin:0.39.0"
     }
 
     object Android {
         object Tools {
             object Build {
-                const val gradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha01"
+                const val gradlePlugin = "com.android.tools.build:gradle:4.1.1"
             }
         }
     }
@@ -70,7 +73,7 @@ object Deps {
         }
 
         object Activity {
-            const val activityCompose = "androidx.activity:activity-compose:1.3.0-alpha02"
+            const val activityCompose = "androidx.activity:activity-compose:1.3.0-beta01"
         }
     }
 

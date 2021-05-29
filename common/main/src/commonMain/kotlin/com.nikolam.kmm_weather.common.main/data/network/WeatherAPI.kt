@@ -10,6 +10,8 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
+import io.github.aakira.*
+import io.github.aakira.napier.Napier
 
 class WeatherAPI(clientEngine: HttpClientEngine) {
 
@@ -35,9 +37,10 @@ class WeatherAPI(clientEngine: HttpClientEngine) {
         }
 
         val jsonBody = response.readText()
-        val netModel =  Json.decodeFromString(CurrentWeatherNetworkModel.serializer(), jsonBody)
+        val netModel = Json{ignoreUnknownKeys = true}.decodeFromString(CurrentWeatherNetworkModel.serializer(), jsonBody)
 
-      //  Napier.d(netModel)
+        Napier.d(netModel.toString(), tag = "my_tag")
+
 
         return CurrentWeatherModel(netModel.name)
     }

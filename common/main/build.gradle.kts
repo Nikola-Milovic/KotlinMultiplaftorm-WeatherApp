@@ -19,7 +19,7 @@ kotlin {
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinExtensionsCoroutines)
                 implementation(Deps.Badoo.Reaktive.reaktive)
 
-         //       implementation(Deps.Utils.napier)
+                implementation(Deps.Utils.napier)
 
                 implementation(Deps.JetBrains.Ktor.core)
                 implementation(Deps.JetBrains.Ktor.json)
@@ -29,10 +29,12 @@ kotlin {
 
         named("androidMain") {
             dependencies {
+                implementation(Deps.Utils.napier)
+
                 implementation(Deps.JetBrains.Ktor.android)
                 implementation(Deps.JetBrains.Ktor.jsonJVM)
                 implementation(Deps.JetBrains.Ktor.serializationJVM)
-                implementation(Deps.JetBrains.Ktor.logging)
+                //implementation(Deps.JetBrains.Ktor.logging)
             }
         }
 
@@ -55,36 +57,5 @@ kotlin {
 
     targets.getByName<KotlinNativeTarget>("iosX64").compilations.forEach {
         it.kotlinOptions.freeCompilerArgs += arrayOf("-linker-options", "-lsqlite3")
-    }
-}
-
-fun addKtor() {
-    kotlin {
-        sourceSets {
-            named("commonMain") {
-                dependencies {
-                    implementation(Deps.JetBrains.Ktor.core)
-                    implementation(Deps.JetBrains.Ktor.json)
-                    implementation(Deps.JetBrains.Ktor.serialization)
-                }
-            }
-
-            named("androidMain") {
-                dependencies {
-                    implementation(Deps.JetBrains.Ktor.android)
-                    implementation(Deps.JetBrains.Ktor.jsonJVM)
-                    implementation(Deps.JetBrains.Ktor.serializationJVM)
-                    implementation(Deps.JetBrains.Ktor.logging)
-                }
-            }
-
-            named("iosMain") {
-                dependencies {
-                    implementation(Deps.JetBrains.Ktor.ios)
-                    implementation(Deps.JetBrains.Ktor.iosSerialization)
-                    //       implementation(Deps.JetBrains.Ktor.jsonNative)
-                }
-            }
-        }
     }
 }

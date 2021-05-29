@@ -8,6 +8,7 @@ repositories {
     google()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -16,6 +17,7 @@ dependencies {
     implementation(Deps.Android.Tools.Build.gradlePlugin)
     implementation(Deps.Squareup.SQLDelight.gradlePlugin)
     implementation(Deps.JetBrains.Kotlin.serializationGradle)
+    implementation(Deps.Utils.dependenciesCheck)
 }
 
 kotlin {

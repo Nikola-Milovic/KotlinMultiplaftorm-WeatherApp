@@ -6,6 +6,6 @@ import com.nikolam.kmm_weather.common.main.WeatherMainModel
 internal val STATE_TO_MODEL: (WeatherMainStore.State) -> WeatherMainModel.Model =
     {
         WeatherMainModel.Model(
-            modelCurrents = it.modelCurrents
+            currentWeather = it.currentWeather
         )
     }

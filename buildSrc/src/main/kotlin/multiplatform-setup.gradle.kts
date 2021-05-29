@@ -3,17 +3,17 @@ plugins {
     id("kotlin-multiplatform")
 }
 
-//workaround for https://youtrack.jetbrains.com/issue/KT-43944
-android {
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
-}
+////workaround for https://youtrack.jetbrains.com/issue/KT-43944
+//android {
+//    configurations {
+//        create("androidTestApi")
+//        create("androidTestDebugApi")
+//        create("androidTestReleaseApi")
+//        create("testApi")
+//        create("testDebugApi")
+//        create("testReleaseApi")
+//    }
+//}
 
 kotlin {
     jvm("desktop")
