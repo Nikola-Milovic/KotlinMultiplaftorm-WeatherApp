@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.*
-import androidx.compose.ui.focus.focusModifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -161,14 +159,14 @@ fun DayForecast(modifier: Modifier) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             if (isSystemInDarkTheme()) {
                 Image(
-                    painterResource(id = R.drawable.day_clear),
+                    loadWeatherIcon(id = 123),
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                     contentDescription = "current weather image displaying the current weather",
                     colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                 )
             } else {
                 Image(
-                    painterResource(id = R.drawable.day_clear),
+                    loadWeatherIcon(id = 123),
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                     contentDescription = "current weather image displaying the current weather"
                 )
@@ -207,13 +205,13 @@ fun WindAndHumidityBox(modifier: Modifier) {
             ) {
                 if (isSystemInDarkTheme()) {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         contentDescription = "humidity",
                         colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                     )
                 } else {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         contentDescription = "humidity"
                     )
                 }
@@ -246,13 +244,13 @@ fun WindAndHumidityBox(modifier: Modifier) {
             ) {
                 if (isSystemInDarkTheme()) {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         contentDescription = "humidity",
                         colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                     )
                 } else {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         contentDescription = "humidity"
                     )
                 }
@@ -277,7 +275,7 @@ private fun CurrentWeather(modifier: Modifier) {
             Column(modifier = Modifier.padding(bottom = 20.dp)) { // location and time/date
                 Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_location),
+                        painter = loadWeatherIcon(id = 1234),
                         contentDescription = "location",
                         tint = MaterialTheme.colors.onPrimary
                     )
@@ -299,14 +297,14 @@ private fun CurrentWeather(modifier: Modifier) {
 
                 if (isSystemInDarkTheme()) {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         modifier = Modifier.align(alignment = Alignment.CenterVertically),
                         contentDescription = "current weather image displaying the current weather",
                         colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                     )
                 } else {
                     Image(
-                        painterResource(id = R.drawable.day_clear),
+                        loadWeatherIcon(id = 123),
                         modifier = Modifier.align(alignment = Alignment.CenterVertically),
                         contentDescription = "current weather image displaying the current weather",
                     )
@@ -335,41 +333,3 @@ private fun CurrentWeather(modifier: Modifier) {
     }
 }
 
-@Composable
-private fun SearchBox(modifier: Modifier) {
-    Box(modifier) {
-        var textValue by remember { mutableStateOf("") }
-
-        val context = LocalContext.current
-
-        OutlinedTextField(value = textValue,
-            leadingIcon = {
-                Icon(
-                    painterResource(id = R.drawable.ic_baseline_search_24),
-                    "search",
-                    tint = MaterialTheme.colors.onPrimary
-                )
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onPrimary,
-                unfocusedBorderColor = MaterialTheme.colors.onPrimary
-            ),
-            label = { Text("Search For A City", color = MaterialTheme.colors.onPrimary) },
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search,
-                keyboardType = KeyboardType.Text
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    hideKeyboard(context = context)
-
-                }),
-            onValueChange = { text ->
-                textValue = text
-            }
-        )
-    }
-}

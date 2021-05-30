@@ -14,6 +14,7 @@ kotlin {
                 implementation(Deps.JetBrains.Compose.material)
                 implementation(Deps.JetBrains.Compose.compiler)
                 implementation(Deps.JetBrains.Compose.ui)
+                implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
             }
         }
     }
