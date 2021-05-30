@@ -3,7 +3,6 @@ package com.nikolam.kmm_weather.common.main
 import com.arkivanov.decompose.value.Value
 import com.nikolam.kmm_weather.common.main.data.model.CurrentWeatherModel
 
-
 interface WeatherMainModel {
     val models : Value<Model>
 

@@ -10,7 +10,6 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
-import io.github.aakira.*
 import io.github.aakira.napier.Napier
 
 class WeatherAPI(clientEngine: HttpClientEngine) {
@@ -21,7 +20,7 @@ class WeatherAPI(clientEngine: HttpClientEngine) {
         }
     }
 
-    suspend fun getCurrentWeather(): CurrentWeatherModel {
+    suspend fun getWeather(): CurrentWeatherModel {
         // Actually we're able to just return the get()-call and Ktor's JsonFeature will automatically do the
         // JSON parsing for us. However, this currently doesn't work with Kotlin/Native as it doesn't support reflection
         // and we have to manually use PopularMoviesEntity.serializer()
@@ -29,21 +28,24 @@ class WeatherAPI(clientEngine: HttpClientEngine) {
             url {
                 protocol = URLProtocol.HTTPS
                 host = "api.openweathermap.org/"
-                encodedPath = "/data/2.5/weather"
-                parameter("q", "Belgrade")
+                encodedPath = "/data/2.5/onecall"
+                //    parameter("q", "Belgrade")
                 parameter("appid", "f3a39ee4cb7053b4b27f3bbb8bca11c8")
+                parameter("units", "metric")
+                parameter("lat", 44.787197)
+                parameter("lon", 20.457273)
 //                header(HEADER_AUTHORIZATION, API_KEY.asBearerToken())
             }
         }
 
         val jsonBody = response.readText()
-        val netModel = Json{ignoreUnknownKeys = true}.decodeFromString(CurrentWeatherNetworkModel.serializer(), jsonBody)
+        val netModel = Json {
+            ignoreUnknownKeys = true
+        }.decodeFromString(CurrentWeatherNetworkModel.serializer(), jsonBody)
 
         Napier.d(netModel.toString(), tag = "my_tag")
 
 
-        return CurrentWeatherModel(netModel.name)
+        return netModel.toBusinessModel()
     }
-
-
 }

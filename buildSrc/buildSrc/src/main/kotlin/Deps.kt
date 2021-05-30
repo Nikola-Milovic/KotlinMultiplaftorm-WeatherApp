@@ -45,9 +45,11 @@ object Deps {
             private const val VERSION = "0.4.0-build183"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
 
-            private const val TOOLING_VERSION = "1.0.0-beta07"
-            const val tooling = "androidx.compose.ui:ui-tooling:$TOOLING_VERSION"
-            const val compiler = "androidx.compose.compiler:compiler:$TOOLING_VERSION"
+            private const val COMPOSE_VER = "1.0.0-beta07"
+            const val tooling = "androidx.compose.ui:ui-tooling:$COMPOSE_VER"
+            const val compiler = "androidx.compose.compiler:compiler:$COMPOSE_VER"
+            const val material = "androidx.compose.material:material:$COMPOSE_VER"
+            const val ui = "androidx.compose.ui:ui:$COMPOSE_VER"
         }
 
 

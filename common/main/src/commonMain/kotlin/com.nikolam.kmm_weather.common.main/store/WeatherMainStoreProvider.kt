@@ -29,7 +29,10 @@ internal class WeatherMainStoreProvider(
 
 
     private sealed class Result {
-        data class WeatherLoaded(val currentWeather: CurrentWeatherModel) : Result()
+        data class WeatherLoaded(
+            val currentWeather: CurrentWeatherModel
+        ) : Result()
+
         data class ItemsLoadFailed(val err: Int) : Result()
     }
 
@@ -37,11 +40,11 @@ internal class WeatherMainStoreProvider(
         SuspendExecutor<WeatherMainStore.Intent, Unit, State, Result, Nothing>() {
         override suspend fun executeAction(action: Unit, getState: () -> State) {
             try {
-                val m = weatherAPI.getCurrentWeather()
+                val m = weatherAPI.getWeather()
                 Napier.d("Sucess $m", tag = "my_tag")
                 dispatch(Result.WeatherLoaded(m))
             } catch (e: Exception) {
-                Napier.e(e.toString(), e,tag = "my_tag")
+                Napier.e(e.toString(), e, tag = "my_tag")
                 dispatch(Result.ItemsLoadFailed(-1))
             }
         }
@@ -50,7 +53,9 @@ internal class WeatherMainStoreProvider(
     private object ReducerImpl : Reducer<State, Result> {
         override fun State.reduce(result: Result): State =
             when (result) {
-                is Result.WeatherLoaded -> copy(currentWeather = result.currentWeather)
+                is Result.WeatherLoaded -> copy(
+                    currentWeather = result.currentWeather
+                )
                 is Result.ItemsLoadFailed -> copy()
             }
     }
