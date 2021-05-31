@@ -6,8 +6,9 @@ import androidx.compose.ui.graphics.painter.Painter
 import kotlin.math.roundToInt
 
 @Composable
-expect fun isSystemInDarkTheme() : Boolean
+expect fun isDarkMode() : Boolean
 
+@Composable
 expect fun loadWeatherIcon(id : Int) : Painter
 
 fun String.toTempUnit(unit : String) : String{

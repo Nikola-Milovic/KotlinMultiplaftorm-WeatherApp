@@ -49,6 +49,7 @@ object Deps {
             const val tooling = "androidx.compose.ui:ui-tooling:$COMPOSE_VER"
             const val compiler = "androidx.compose.compiler:compiler:$COMPOSE_VER"
             const val material = "androidx.compose.material:material:$COMPOSE_VER"
+            const val runtime = "androidx.compose.runtime:runtime:$COMPOSE_VER"
             const val ui = "androidx.compose.ui:ui:$COMPOSE_VER"
         }
 
@@ -64,7 +65,7 @@ object Deps {
     object Android {
         object Tools {
             object Build {
-                const val gradlePlugin = "com.android.tools.build:gradle:4.1.1"
+                const val gradlePlugin = "com.android.tools.build:gradle:4.0.1"
             }
         }
     }

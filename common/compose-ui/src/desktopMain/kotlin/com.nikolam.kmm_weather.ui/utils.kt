@@ -5,10 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 
 @Composable
-actual fun isSystemInDarkTheme() : Boolean {
-    return isSystemInDarkTheme()
+actual fun isDarkMode() : Boolean {
+    return false //isSystemInDarkTheme()
 }
-
+@Composable
 actual fun loadWeatherIcon(id : Int) : Painter {
     return loadWeatherIcon(id)
 }

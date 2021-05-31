@@ -17,18 +17,6 @@ plugins {
 //        create("testReleaseApi")
 //    }
 //}
-
-android {
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta07"
-                kotlinCompilerVersion = "1.4.32"
-    }
-}
-
 kotlin {
     jvm("desktop")
     android()
@@ -39,15 +27,13 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(Deps.JetBrains.Compose.tooling)
-                implementation(Deps.JetBrains.Compose.compiler)
             }
         }
 
         named("androidMain") {
             dependencies {
-                implementation("androidx.appcompat:appcompat:1.4.0-alpha01")
-                implementation("androidx.core:core-ktx:1.5.0")
+                implementation("androidx.appcompat:appcompat:1.3.0-beta01")
+                implementation("androidx.core:core-ktx:1.3.1")
             }
         }
 

@@ -6,14 +6,16 @@ import android.view.inputmethod.InputMethodManager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 
 @Composable
-actual fun isSystemInDarkTheme() : Boolean {
-    return isSystemInDarkTheme()
+actual fun isDarkMode() : Boolean {
+    return androidx.compose.foundation.isSystemInDarkTheme()
 }
 
+@Composable
 actual fun loadWeatherIcon(id : Int) : Painter {
-    return loadWeatherIcon(id)
+    return painterResource(id)
 }
 
 fun hideKeyboard(context: Context) {

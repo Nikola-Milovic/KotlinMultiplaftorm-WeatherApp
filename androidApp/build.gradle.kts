@@ -1,10 +1,10 @@
 import org.jetbrains.compose.compose
 
 plugins {
-            id("com.android.application")
-            kotlin("android")
-            id("org.jetbrains.compose")
-        }
+    id("com.android.application")
+    kotlin("android")
+    id("org.jetbrains.compose")
+}
 
 android {
     compileSdkVersion(AndroidGradle.TARGETSDK)
@@ -23,19 +23,12 @@ android {
     packagingOptions {
         exclude("META-INF/*")
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
-
 dependencies {
-    implementation(project(":common:root"))
-    implementation(project(":common:main"))
     implementation(project(":common:utils"))
+    implementation(project(":common:root"))
     implementation(project(":common:compose-ui"))
     implementation(compose.material)
-    implementation(Deps.JetBrains.Compose.compiler)
     implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
     implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
     implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinLogging)
@@ -46,6 +39,4 @@ dependencies {
     implementation(Deps.AndroidX.Activity.activityCompose)
 
     implementation(Deps.Utils.napier)
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
 }

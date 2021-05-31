@@ -42,7 +42,7 @@ fun WeatherMainContent(component: WeatherMainModel) {
                 .fillMaxHeight()
                 .background(
                     brush = Brush.linearGradient(
-                        if (!isSystemInDarkTheme()) {
+                        if (isDarkMode()) {
                             listOf(DarkPurple, MediumPurple, SkyBlue)
                         } else {
                             listOf(DarkDarkPurple, DarkMediumPurple, DarkSkyBlue)
@@ -132,6 +132,7 @@ fun WeatherMainContent(component: WeatherMainModel) {
 }
 
 
+
 @Composable()
 fun NextDaysForecast(modifier: Modifier) {
     Row(modifier.fillMaxWidth()) {
@@ -157,7 +158,7 @@ fun DayForecast(modifier: Modifier) {
             .padding(4.dp)
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
-            if (isSystemInDarkTheme()) {
+            if (isDarkMode()) {
                 Image(
                     loadWeatherIcon(id = 123),
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
@@ -203,7 +204,7 @@ fun WindAndHumidityBox(modifier: Modifier) {
                     .height(IntrinsicSize.Min)
                     .weight(0.3f)
             ) {
-                if (isSystemInDarkTheme()) {
+                if (isDarkMode()) {
                     Image(
                         loadWeatherIcon(id = 123),
                         contentDescription = "humidity",
@@ -242,7 +243,7 @@ fun WindAndHumidityBox(modifier: Modifier) {
                     .height(IntrinsicSize.Min)
                     .weight(0.3f)
             ) {
-                if (isSystemInDarkTheme()) {
+                if (isDarkMode()) {
                     Image(
                         loadWeatherIcon(id = 123),
                         contentDescription = "humidity",
@@ -295,7 +296,7 @@ private fun CurrentWeather(modifier: Modifier) {
 
             Row(Modifier.align(Alignment.CenterHorizontally)) {
 
-                if (isSystemInDarkTheme()) {
+                if (isDarkMode()) {
                     Image(
                         loadWeatherIcon(id = 123),
                         modifier = Modifier.align(alignment = Alignment.CenterVertically),
