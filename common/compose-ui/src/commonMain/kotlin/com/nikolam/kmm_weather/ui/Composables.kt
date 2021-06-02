@@ -11,10 +11,5 @@ expect fun isDarkMode() : Boolean
 @Composable
 expect fun loadWeatherIcon(id : Int) : Painter
 
-fun String.toTempUnit(unit : String) : String{
-    return if (unit == "C") "$this°"
-    else (this.toInt() * 1.8f + 32).roundToInt().toString() +"F"
-}
-
 @Composable
 expect fun SearchBox(modifier: Modifier)

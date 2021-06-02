@@ -43,9 +43,6 @@ class WeatherAPI(clientEngine: HttpClientEngine) {
             ignoreUnknownKeys = true
         }.decodeFromString(CurrentWeatherNetworkModel.serializer(), jsonBody)
 
-        Napier.d(netModel.toString(), tag = "my_tag")
-
-
         return netModel.toBusinessModel()
     }
 }

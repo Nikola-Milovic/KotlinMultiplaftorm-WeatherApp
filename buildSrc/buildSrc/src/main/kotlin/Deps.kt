@@ -47,6 +47,7 @@ object Deps {
 
             private const val COMPOSE_VER = "1.0.0-beta07"
             const val tooling = "androidx.compose.ui:ui-tooling:$COMPOSE_VER"
+            const val extended_material_icons = "androidx.compose.material:material-icons-extended:$COMPOSE_VER"
             const val compiler = "androidx.compose.compiler:compiler:$COMPOSE_VER"
             const val material = "androidx.compose.material:material:$COMPOSE_VER"
             const val runtime = "androidx.compose.runtime:runtime:$COMPOSE_VER"

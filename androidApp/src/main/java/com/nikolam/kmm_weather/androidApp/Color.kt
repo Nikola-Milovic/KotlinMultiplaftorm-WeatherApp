@@ -2,7 +2,11 @@ package com.nikolam.kmm_weather.androidApp
 
 import androidx.compose.ui.graphics.Color
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
+val DarkPurple = Color(0xFF5550F2)
+val SkyBlue = Color(0xFF8CCEF4)
+val MediumPurple = Color(0xFF6187F6)
+
+val DarkDarkPurple = Color(0xFF00002c)
+val DarkSkyBlue  =   Color(0xFF443381)
+val DarkMediumPurple = Color(0xFF110c54)
+val DarkTextColor = Color(0xFF87a1ff)

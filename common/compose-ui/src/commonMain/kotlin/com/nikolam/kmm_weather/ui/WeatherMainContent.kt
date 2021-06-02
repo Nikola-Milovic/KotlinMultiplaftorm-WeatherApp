@@ -4,9 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,14 +17,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.*
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.arkivanov.decompose.extensions.compose.jetbrains.asState
 import com.nikolam.kmm_weather.common.main.WeatherMainModel
+import com.nikolam.kmm_weather.common.main.data.model.DailyWeatherModel
+import io.github.aakira.napier.*
+
+//import androidx.compose.material.icons.outlined
 
 val LocalTemUnit = compositionLocalOf<String> { error("No data found!") }
 
@@ -35,6 +38,13 @@ fun WeatherMainContent(component: WeatherMainModel) {
     val (tempUnit, setTempUnit) = remember { mutableStateOf("C") } // F or C
     val checkedState = remember { mutableStateOf(false) }
 
+    Napier.d("Weather is $model", tag = "my_tag")
+
+    if (model.isError || model.currentWeather == null) {
+        Napier.d("Weather is " + model.currentWeather.toString())
+        return
+    }
+
     CompositionLocalProvider(LocalTemUnit provides tempUnit) {
         Box(
             modifier = Modifier
@@ -42,7 +52,7 @@ fun WeatherMainContent(component: WeatherMainModel) {
                 .fillMaxHeight()
                 .background(
                     brush = Brush.linearGradient(
-                        if (isDarkMode()) {
+                        if (!isDarkMode()) {
                             listOf(DarkPurple, MediumPurple, SkyBlue)
                         } else {
                             listOf(DarkDarkPurple, DarkMediumPurple, DarkSkyBlue)
@@ -86,7 +96,12 @@ fun WeatherMainContent(component: WeatherMainModel) {
                     )
                 }
 
-                CurrentWeather(Modifier.weight(0.3f))
+                CurrentWeather(
+                    Modifier.weight(0.3f),
+                    model.currentWeather!!.weatherID,
+                    model.currentWeather!!.temp,
+                    model.currentWeather!!.weatherDesc
+                )
                 Spacer(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -94,7 +109,9 @@ fun WeatherMainContent(component: WeatherMainModel) {
                 )
                 WindAndHumidityBox(
                     Modifier
-                        .weight(0.3f)
+                        .weight(0.3f),
+                    model.currentWeather!!.humidity,
+                    model.currentWeather!!.wind
                 )
                 Spacer(
                     modifier = Modifier
@@ -124,7 +141,8 @@ fun WeatherMainContent(component: WeatherMainModel) {
 
                 NextDaysForecast(
                     modifier = Modifier
-                        .weight(0.2f)
+                        .weight(0.2f),
+                    model.currentWeather!!.daily
                 )
             }
         }
@@ -132,13 +150,15 @@ fun WeatherMainContent(component: WeatherMainModel) {
 }
 
 
-
 @Composable()
-fun NextDaysForecast(modifier: Modifier) {
+fun NextDaysForecast(modifier: Modifier, forecast: List<DailyWeatherModel>) {
     Row(modifier.fillMaxWidth()) {
-        listOf("32", "28", "13", "17", "13", "18", "15").forEach {
-            DayForecast(Modifier.weight(1f))
-            if (it != "15") {
+        for (i in forecast.indices) {
+            if (i > 6) {
+                break
+            }
+            DayForecast(Modifier.weight(1f), forecast = forecast[i])
+            if (i != 6) {
                 Divider(
                     Modifier
                         .fillMaxHeight(0.5f)
@@ -151,7 +171,7 @@ fun NextDaysForecast(modifier: Modifier) {
 }
 
 @Composable()
-fun DayForecast(modifier: Modifier) {
+fun DayForecast(modifier: Modifier, forecast: DailyWeatherModel) {
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -160,22 +180,25 @@ fun DayForecast(modifier: Modifier) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             if (isDarkMode()) {
                 Image(
-                    loadWeatherIcon(id = 123),
+                    loadWeatherIcon(forecast.weatherID),
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                     contentDescription = "current weather image displaying the current weather",
                     colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                 )
             } else {
                 Image(
-                    loadWeatherIcon(id = 123),
+                    loadWeatherIcon(forecast.weatherID),
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                     contentDescription = "current weather image displaying the current weather"
                 )
             }
             Text(
-                text = "27".toTempUnit(LocalTemUnit.current), fontSize = 18.sp, modifier = Modifier
+                text = forecast.temp.toString().toTempUnit(LocalTemUnit.current),
+                fontSize = 18.sp,
+                modifier = Modifier
                     .padding(5.dp)
-                    .align(Alignment.CenterHorizontally), color = MaterialTheme.colors.onPrimary
+                    .align(Alignment.CenterHorizontally),
+                color = MaterialTheme.colors.onPrimary
             )
         }
     }
@@ -183,7 +206,7 @@ fun DayForecast(modifier: Modifier) {
 
 
 @Composable
-fun WindAndHumidityBox(modifier: Modifier) {
+fun WindAndHumidityBox(modifier: Modifier, humidity: Int, wind: Int) {
     Surface(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -204,20 +227,18 @@ fun WindAndHumidityBox(modifier: Modifier) {
                     .height(IntrinsicSize.Min)
                     .weight(0.3f)
             ) {
-                if (isDarkMode()) {
-                    Image(
-                        loadWeatherIcon(id = 123),
-                        contentDescription = "humidity",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-                    )
-                } else {
-                    Image(
-                        loadWeatherIcon(id = 123),
-                        contentDescription = "humidity"
-                    )
-                }
+
+                Image(
+                    loadWeatherIcon(1),
+                    contentDescription = "humidity",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically)
+                )
+
                 Text(
-                    text = "Precipitation \n 10%", fontWeight = FontWeight.Bold, fontSize = 14.sp,
+                    text = "Humidity \n $humidity%",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 10.dp, end = 10.dp),
@@ -243,20 +264,16 @@ fun WindAndHumidityBox(modifier: Modifier) {
                     .height(IntrinsicSize.Min)
                     .weight(0.3f)
             ) {
-                if (isDarkMode()) {
-                    Image(
-                        loadWeatherIcon(id = 123),
-                        contentDescription = "humidity",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-                    )
-                } else {
-                    Image(
-                        loadWeatherIcon(id = 123),
-                        contentDescription = "humidity"
-                    )
-                }
+
+                Image(
+                    loadWeatherIcon(id = 2),
+                    contentDescription = "wind",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically)
+                )
+
                 Text(
-                    text = "Precipitation \n 10%", fontWeight = FontWeight.Bold, fontSize = 14.sp,
+                    text = "Wind \n $wind m/s", fontWeight = FontWeight.Bold, fontSize = 16.sp,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 10.dp, end = 10.dp),
@@ -269,14 +286,14 @@ fun WindAndHumidityBox(modifier: Modifier) {
 }
 
 @Composable
-private fun CurrentWeather(modifier: Modifier) {
+private fun CurrentWeather(modifier: Modifier, weatherID: Int, temp: Int, weatherDesc: String) {
     Box(modifier = modifier.fillMaxWidth()) {
         Column(Modifier.align(Alignment.Center)) {
 
             Column(modifier = Modifier.padding(bottom = 20.dp)) { // location and time/date
                 Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                     Icon(
-                        painter = loadWeatherIcon(id = 1234),
+                        Icons.Filled.LocationOn,
                         contentDescription = "location",
                         tint = MaterialTheme.colors.onPrimary
                     )
@@ -298,31 +315,31 @@ private fun CurrentWeather(modifier: Modifier) {
 
                 if (isDarkMode()) {
                     Image(
-                        loadWeatherIcon(id = 123),
+                        loadWeatherIcon(weatherID),
                         modifier = Modifier.align(alignment = Alignment.CenterVertically),
                         contentDescription = "current weather image displaying the current weather",
                         colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                     )
                 } else {
                     Image(
-                        loadWeatherIcon(id = 123),
+                        loadWeatherIcon(weatherID),
                         modifier = Modifier.align(alignment = Alignment.CenterVertically),
                         contentDescription = "current weather image displaying the current weather",
                     )
                 }
 
                 Text(
-                    text = "27".toTempUnit(LocalTemUnit.current),
-                    fontSize = 40.sp,
+                    text = temp.toString().toTempUnit(LocalTemUnit.current),
+                    fontSize = 50.sp,
                     modifier = Modifier
-                        .padding(5.dp)
-                        .align(Alignment.Top),
+                        .padding(start = 10.dp)
+                        .align(Alignment.CenterVertically),
                     color = MaterialTheme.colors.onPrimary
                 )
             }
 
             Text(
-                text = "Sunny",
+                text = weatherDesc.capitalize(),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 20.dp),

@@ -18,7 +18,16 @@ data class CurrentWeatherNetworkModel(
     var alerts: List<Alert> = listOf()
 ) {
     fun toBusinessModel(): CurrentWeatherModel {
-        return CurrentWeatherModel(timezone)
+        val newList = arrayListOf<DailyWeatherModel>()
+        for (i in daily.indices) {
+            val temp = daily[i].temp.day
+            newList.add(DailyWeatherModel(daily[i].weather[0].id.toInt(), i, temp.toInt()))
+        }
+
+        return CurrentWeatherModel(
+            weatherID = current.weather[0].id.toInt(), newList, current.temp.toInt(),
+            current.windSpeed.toInt(), current.humidity.toInt(), current.weather[0].description
+        )
     }
 }
 
@@ -60,7 +69,6 @@ data class Current(
     val windDeg: Long,
 
     val weather: List<Weather>,
-    val rain: Rain? = null,
 
     @SerialName("wind_gust")
     val windGust: Double? = null
@@ -111,7 +119,6 @@ data class Daily(
     val weather: List<Weather>,
     val clouds: Long,
     val pop: Double,
-    val rain: Double,
     val uvi: Double
 )
 

@@ -41,7 +41,7 @@ internal class WeatherMainStoreProvider(
         override suspend fun executeAction(action: Unit, getState: () -> State) {
             try {
                 val m = weatherAPI.getWeather()
-                Napier.d("Sucess $m", tag = "my_tag")
+                Napier.d("Sucess $m\n", tag = "my_tag")
                 dispatch(Result.WeatherLoaded(m))
             } catch (e: Exception) {
                 Napier.e(e.toString(), e, tag = "my_tag")
@@ -54,9 +54,11 @@ internal class WeatherMainStoreProvider(
         override fun State.reduce(result: Result): State =
             when (result) {
                 is Result.WeatherLoaded -> copy(
-                    currentWeather = result.currentWeather
+                    currentWeather = result.currentWeather,
+                    isLoading = false,
+                    isError = false
                 )
-                is Result.ItemsLoadFailed -> copy()
+                is Result.ItemsLoadFailed -> copy(isLoading = false, isError = true)
             }
     }
 }

@@ -13,20 +13,20 @@ allprojects {
     }
 
 
-    afterEvaluate {
-        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions {
-                useIR = true
-                if (configurations.findByName("kotlinCompilerPluginClasspath")
-                        ?.dependencies
-                        ?.any { it.group == "androidx.compose.compiler" } == true
-                ) {
-                    freeCompilerArgs += listOf(
-                        "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-                    )
-                }
-            }
-        }
-    }
+//    afterEvaluate {
+//        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//            kotlinOptions {
+//                useIR = true
+//                if (configurations.findByName("kotlinCompilerPluginClasspath")
+//                        ?.dependencies
+//                        ?.any { it.group == "androidx.compose.compiler" } == true
+//                ) {
+//                    freeCompilerArgs += listOf(
+//                        "-P",
+//                        "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+//                    )
+//                }
+//            }
+//        }
+//    }
 }

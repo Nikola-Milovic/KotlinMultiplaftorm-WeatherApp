@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,7 +25,7 @@ actual fun SearchBox(modifier: Modifier) {
         OutlinedTextField(value = textValue,
             leadingIcon = {
                 Icon(
-                    loadWeatherIcon(id = 12345),
+                    Icons.Default.Search,
                     "search",
                     tint = MaterialTheme.colors.onPrimary
                 )
@@ -42,7 +44,7 @@ actual fun SearchBox(modifier: Modifier) {
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    hideKeyboard(context = context)
+                  //  hideKeyboard(context = context)
                 }),
             onValueChange = { text ->
                 textValue = text
