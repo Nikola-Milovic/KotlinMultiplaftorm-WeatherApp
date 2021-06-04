@@ -37,6 +37,7 @@ object Deps {
             const val iosSerialization = "io.ktor:ktor-client-serialization-iosx64:$VERSION"
 
             const val curlClient = "io.ktor:ktor-client-curl:$VERSION"
+            const val javaClient = "io.ktor:ktor-client-java:$VERSION"
 
         }
 

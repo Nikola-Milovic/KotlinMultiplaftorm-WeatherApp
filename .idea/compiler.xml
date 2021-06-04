@@ -18,6 +18,10 @@
       <module name="kmm-weather.common.utils.commonTest" target="1.8" />
       <module name="kmm-weather.common.utils.desktopMain" target="1.8" />
       <module name="kmm-weather.common.utils.desktopTest" target="1.8" />
+      <module name="kmm-weather.desktop.commonMain" target="1.8" />
+      <module name="kmm-weather.desktop.commonTest" target="1.8" />
+      <module name="kmm-weather.desktop.jvmMain" target="1.8" />
+      <module name="kmm-weather.desktop.jvmTest" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

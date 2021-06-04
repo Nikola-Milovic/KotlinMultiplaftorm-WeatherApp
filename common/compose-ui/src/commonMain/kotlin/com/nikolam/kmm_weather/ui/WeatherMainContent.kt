@@ -4,9 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +24,8 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.arkivanov.decompose.extensions.compose.jetbrains.asState
 import com.nikolam.kmm_weather.common.main.WeatherMainModel
@@ -178,20 +183,15 @@ fun DayForecast(modifier: Modifier, forecast: DailyWeatherModel) {
             .padding(4.dp)
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
-            if (isDarkMode()) {
-                Image(
-                    loadWeatherIcon(forecast.weatherID),
-                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                    contentDescription = "current weather image displaying the current weather",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-                )
-            } else {
-                Image(
-                    loadWeatherIcon(forecast.weatherID),
-                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                    contentDescription = "current weather image displaying the current weather"
-                )
-            }
+
+            KMPImage(
+                id = forecast.weatherID,
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                contentDescription = "current weather image displaying the current weather",
+                colorFilter = if (isDarkMode()) ColorFilter.tint(MaterialTheme.colors.onPrimary) else null
+            )
+
+
             Text(
                 text = forecast.temp.toString().toTempUnit(LocalTemUnit.current),
                 fontSize = 18.sp,
@@ -228,11 +228,12 @@ fun WindAndHumidityBox(modifier: Modifier, humidity: Int, wind: Int) {
                     .weight(0.3f)
             ) {
 
-                Image(
-                    loadWeatherIcon(1),
+
+                KMPImage(
+                    id = 1,
+                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically),
                     contentDescription = "humidity",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
-                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically)
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
                 )
 
                 Text(
@@ -265,11 +266,11 @@ fun WindAndHumidityBox(modifier: Modifier, humidity: Int, wind: Int) {
                     .weight(0.3f)
             ) {
 
-                Image(
-                    loadWeatherIcon(id = 2),
+                KMPImage(
+                    id = 2,
+                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically),
                     contentDescription = "wind",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
-                    modifier = Modifier.scale(1.2f).align(Alignment.CenterVertically)
+                    colorFilter =  ColorFilter.tint(MaterialTheme.colors.onPrimary)
                 )
 
                 Text(
@@ -313,20 +314,13 @@ private fun CurrentWeather(modifier: Modifier, weatherID: Int, temp: Int, weathe
 
             Row(Modifier.align(Alignment.CenterHorizontally)) {
 
-                if (isDarkMode()) {
-                    Image(
-                        loadWeatherIcon(weatherID),
-                        modifier = Modifier.align(alignment = Alignment.CenterVertically),
-                        contentDescription = "current weather image displaying the current weather",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-                    )
-                } else {
-                    Image(
-                        loadWeatherIcon(weatherID),
-                        modifier = Modifier.align(alignment = Alignment.CenterVertically),
-                        contentDescription = "current weather image displaying the current weather",
-                    )
-                }
+                KMPImage(
+                    id = weatherID,
+                    modifier = Modifier.align(alignment = Alignment.CenterVertically),
+                    contentDescription = "current weather image displaying the current weather",
+                    colorFilter = if (isDarkMode()) ColorFilter.tint(MaterialTheme.colors.onPrimary) else null
+                )
+
 
                 Text(
                     text = temp.toString().toTempUnit(LocalTemUnit.current),
@@ -351,3 +345,38 @@ private fun CurrentWeather(modifier: Modifier, weatherID: Int, temp: Int, weathe
     }
 }
 
+@Composable
+fun SearchBox(modifier: Modifier) {
+    Box(modifier) {
+        var textValue by remember { mutableStateOf("") }
+
+        OutlinedTextField(value = textValue,
+            leadingIcon = {
+                Icon(
+                    Icons.Default.Search,
+                    "search",
+                    tint = MaterialTheme.colors.onPrimary
+                )
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colors.onPrimary,
+                unfocusedBorderColor = MaterialTheme.colors.onPrimary
+            ),
+            label = { Text("Search For A City", color = MaterialTheme.colors.onPrimary) },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Search,
+                keyboardType = KeyboardType.Text
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    //  hideKeyboard(context = context)
+                }),
+            onValueChange = { text ->
+                textValue = text
+            }
+        )
+    }
+}

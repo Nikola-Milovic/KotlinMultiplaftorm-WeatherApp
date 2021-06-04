@@ -1,19 +1,30 @@
 package com.nikolam.kmm_weather.ui
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.imageResource
 
 @Composable
-actual fun isDarkMode() : Boolean {
+actual fun isDarkMode(): Boolean {
     return false //isSystemInDarkTheme()
 }
+
 @Composable
-actual fun loadWeatherIcon(id : Int) : Painter {
-    return loadWeatherIcon(id)
+actual fun KMPImage(
+    id: Int,
+    modifier: Modifier,
+    colorFilter: ColorFilter?,
+    contentDescription: String
+) {
+    Image(imageResource("images/day_clear.png"),
+        modifier = modifier,
+        contentDescription = contentDescription,
+        colorFilter = colorFilter
+    )
 }
-@Composable
-actual fun SearchBox(modifier: Modifier) {}
+
+//@Composable
+//actual fun SearchBox(modifier: Modifier) {
+//}

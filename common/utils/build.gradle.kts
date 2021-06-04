@@ -37,7 +37,8 @@ kotlin {
         named("desktopMain"){
             dependencies{
                 implementation(Deps.JetBrains.Ktor.core)
-             // implementation(Deps.JetBrains.Ktor.curlClient)
+                implementation(Deps.JetBrains.Ktor.javaClient)
+          //    implementation(Deps.JetBrains.Ktor.curlClient)
             }
         }
 
