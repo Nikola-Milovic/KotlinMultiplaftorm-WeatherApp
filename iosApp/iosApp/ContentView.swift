@@ -1,13 +1,20 @@
 import SwiftUI
-import shared
-
-func greet() -> String {
-    return Greeting().greeting()
-}
+import Weather
 
 struct ContentView: View {
+    @State
+    private var componentHolder =
+        ComponentHolder {
+            WeatherRootComponent(
+                componentContext: $0,
+                storeFactory: DefaultStoreFactory()
+            )
+        }
+
     var body: some View {
-        Text(greet())
+        RootView(componentHolder.component)
+            .onAppear { LifecycleRegistryExtKt.resume(self.componentHolder.lifecycle) }
+            .onDisappear { LifecycleRegistryExtKt.stop(self.componentHolder.lifecycle) }
     }
 }
 
