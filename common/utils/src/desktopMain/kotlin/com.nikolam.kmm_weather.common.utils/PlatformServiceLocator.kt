@@ -6,11 +6,8 @@ import io.ktor.client.engine.java.*
 
 actual object PlatformServiceLocator {
     actual val httpClientEngine: HttpClientEngine = Java.create() {
-
         // this: JavaHttpConfig
         threadsCount = 8
         pipelining = true
-        proxy = ProxyBuilder.http("http://proxy-server.com/")
-
     }
 }

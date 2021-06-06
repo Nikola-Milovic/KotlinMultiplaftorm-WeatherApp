@@ -42,8 +42,10 @@ internal class WeatherMainStoreProvider(
             try {
                 val m = weatherAPI.getWeather()
                 Napier.d("Sucess $m\n", tag = "my_tag")
+
                 dispatch(Result.WeatherLoaded(m))
             } catch (e: Exception) {
+                print(e.message)
                 Napier.e(e.toString(), e, tag = "my_tag")
                 dispatch(Result.ItemsLoadFailed(-1))
             }

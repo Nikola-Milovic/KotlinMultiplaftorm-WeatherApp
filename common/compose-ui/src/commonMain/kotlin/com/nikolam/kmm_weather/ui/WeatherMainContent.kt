@@ -243,7 +243,7 @@ fun WindAndHumidityBox(modifier: Modifier, humidity: Int, wind: Int) {
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 10.dp, end = 10.dp),
-                    color = MaterialTheme.colors.onSecondary
+                    color = MaterialTheme.colors.onPrimary
                 )
             }
 
