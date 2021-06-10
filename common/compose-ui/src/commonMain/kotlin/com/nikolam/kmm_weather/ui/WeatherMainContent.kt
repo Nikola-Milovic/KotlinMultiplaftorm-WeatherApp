@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import com.arkivanov.decompose.extensions.compose.jetbrains.asState
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.nikolam.kmm_weather.common.main.WeatherMainModel
 import com.nikolam.kmm_weather.common.main.data.model.DailyWeatherModel
 import io.github.aakira.napier.*
@@ -38,7 +38,7 @@ val LocalTemUnit = compositionLocalOf<String> { error("No data found!") }
 
 @Composable
 fun WeatherMainContent(component: WeatherMainModel) {
-    val model by component.models.asState()
+    val model by component.models.subscribeAsState()
 
     val (tempUnit, setTempUnit) = remember { mutableStateOf("C") } // F or C
     val checkedState = remember { mutableStateOf(false) }
