@@ -1,6 +1,5 @@
 package com.nikolam.kmm_weather.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,7 +27,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import com.nikolam.kmm_weather.common.main.WeatherMainModel
+import com.nikolam.kmm_weather.common.main.WeatherMain
 import com.nikolam.kmm_weather.common.main.data.model.DailyWeatherModel
 import io.github.aakira.napier.*
 
@@ -37,7 +36,7 @@ import io.github.aakira.napier.*
 val LocalTemUnit = compositionLocalOf<String> { error("No data found!") }
 
 @Composable
-fun WeatherMainContent(component: WeatherMainModel) {
+fun WeatherMainContent(component: WeatherMain) {
     val model by component.models.subscribeAsState()
 
     val (tempUnit, setTempUnit) = remember { mutableStateOf("C") } // F or C

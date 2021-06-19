@@ -1,11 +1,11 @@
 package com.nikolam.kmm_weather.common.main.integration
 
 import com.nikolam.kmm_weather.common.main.store.WeatherMainStore
-import com.nikolam.kmm_weather.common.main.WeatherMainModel
+import com.nikolam.kmm_weather.common.main.WeatherMain
 
-internal val STATE_TO_MODEL: (WeatherMainStore.State) -> WeatherMainModel.Model =
+internal val STATE_TO: (WeatherMainStore.State) -> WeatherMain.Model =
     {
-        WeatherMainModel.Model(
+        WeatherMain.Model(
             currentWeather = it.currentWeather,
             isError = it.isError,
             isLoading =  it.isLoading

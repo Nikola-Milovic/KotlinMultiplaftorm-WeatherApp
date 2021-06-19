@@ -9,14 +9,14 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.badoo.reaktive.base.Consumer
 import com.nikolam.kmm_weather.common.root.WeatherRoot
-import com.nikolam.kmm_weather.common.main.WeatherMainModel
-import com.nikolam.kmm_weather.common.main.integration.WeatherMainModelComponent
+import com.nikolam.kmm_weather.common.main.WeatherMain
+import com.nikolam.kmm_weather.common.main.integration.WeatherMainComponent
 import com.nikolam.kmm_weather.common.root.WeatherRoot.*
 import com.nikolam.kmm_weather.common.utils.Consumer
 
 class WeatherRootComponent internal constructor(
     componentContext: ComponentContext,
-    private val weatherMainModel : (ComponentContext, Consumer<WeatherMainModel.Output>) -> WeatherMainModel
+    private val weatherMain : (ComponentContext, Consumer<WeatherMain.Output>) -> WeatherMain
 ) : WeatherRoot, ComponentContext by componentContext{
 
     constructor(
@@ -24,8 +24,8 @@ class WeatherRootComponent internal constructor(
         storeFactory: StoreFactory
     ) : this(
     componentContext = componentContext,
-    weatherMainModel = { childContext, output ->
-        WeatherMainModelComponent(
+    weatherMain = { childContext, output ->
+        WeatherMainComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             output = output
@@ -44,12 +44,12 @@ class WeatherRootComponent internal constructor(
 
     private fun createChild(configuration: Configuration, componentContext: ComponentContext): Child =
         when (configuration) {
-            is Configuration.Main -> Child.Main(weatherMainModel(componentContext, Consumer(::onMainOutput)))
+            is Configuration.Main -> Child.Main(weatherMain(componentContext, Consumer(::onMainOutput)))
         }
 
-    private fun onMainOutput(output: WeatherMainModel.Output): Unit =
+    private fun onMainOutput(output: WeatherMain.Output): Unit =
         when (output) {
-            is WeatherMainModel.Output.SelectedDay -> {}// router.push(Configuration.Edit(itemId = output.id))
+            is WeatherMain.Output.SelectedDay -> {}// router.push(Configuration.Edit(itemId = output.id))
         }
 
 

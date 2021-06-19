@@ -11,7 +11,6 @@ kotlin {
         binaries {
             framework {
                 baseName = "Weather"
-                linkerOpts.add("-lsqlite3")
                 export(project(":common:main"))
                 export(project(":common:utils"))
                 export(Deps.ArkIvanov.Decompose.decompose)
